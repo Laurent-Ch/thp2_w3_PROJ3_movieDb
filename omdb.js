@@ -21,8 +21,6 @@ btnSubmit.addEventListener('click', e => {
 
 // Treating the search
 let target = document.querySelector("#last-el");
-// let myOmdbKey = '7080b933';
-// apikey=7080b933
 let searchCounter = 1;
 const getData = async (userSearch) => {
   let RecoveredDataToDisplay = [];
@@ -32,8 +30,9 @@ const getData = async (userSearch) => {
     console.log(matchingData);
     matchingData.Search.forEach(movie => {
       RecoveredDataToDisplay.push({ 'name': movie.Title, 'date': movie.Year, 'poster': movie.Poster, id: movie.imdbID });
-      displayData(RecoveredDataToDisplay);
     });
+    // console.log(`RecoveredData: ${JSON.stringify(RecoveredDataToDisplay)}`);
+    displayData(RecoveredDataToDisplay);
   }
   catch (error) {
     console.error('Response error:', error.message);
@@ -43,10 +42,7 @@ const getData = async (userSearch) => {
 // Displaying all the movies
 const displayData = (input) => {
   console.log(input);
-  target.innerHTML = '';
   input.forEach(el => {
-    // Passes 5! times (55) instead of 10.
-    console.log(`Element: ${JSON.stringify(el)}`);
     target.innerHTML += `
     <div class="movie intObs">
       <div class=movie-left>  
@@ -134,8 +130,10 @@ const getDescription = async (movieId) => {
 window.onscroll = function() {
   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
   // if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-  target.innerHTML = '';  
+  // target.innerHTML = '';  
     let userSearch = searchBar.value;
     getData(userSearch);
   }
 }
+
+
