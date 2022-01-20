@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css" />
+  <script src="data.js"></script>
   <script src="omdb.js" defer></script>
   <title>Movie Finder</title>
 </head>
@@ -12,12 +13,30 @@
 
   <h1>Movie Finder</h1>
   <div id="searchbar-container">
-    <input type="search" id="search-bar" placeholder="Please enter your query" class="searchbar"></input>
+    <input type="search" id="search-bar" placeholder="Enter your query" class="searchbar"></input>
     <button id="submit-btn" type="button">Search</button>
   </div>
 
   <div class="modal-bg">
     <div class="modal">
+    <div class="modal-part-left">
+      <!-- <img class="poster" src="https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" alt="movie poster" /> -->
+    </div>
+    <div class="modal-part-right">
+        <!-- <div class="modal-el title-year"><strong>Batman Begins</strong> (2005)</div>
+        <div class="modal-el rated">Rated: PG-13 </div>
+        <div class="modal-el runtime">Runtime: 140 min</div>
+        <div class="modal-el director">Director: Christopher Nolan</div>
+        <div class="modal-el genre">Genre: Action, Crime, Drama</div>
+        <div class="modal-el plot">Synopsis: After training with his mentor, Batman begins his fight to free crime-ridden Gotham City from corruption.</div> -->
+        <div class="modal-el title-year"></div>
+        <div class="modal-el rated"></div>
+        <div class="modal-el runtime"></div>
+        <div class="modal-el director"></div>
+        <div class="modal-el genre"></div>
+        <div class="modal-el plot"></div>
+      </div>
+    </div>
     </div>
   </div>
 

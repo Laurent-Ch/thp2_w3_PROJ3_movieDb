@@ -1,3 +1,4 @@
+/* Top part */
 h1 {
   text-align: center;
 }
@@ -12,11 +13,71 @@ h1 {
   width: 30vw;
 }
 
-.movie {
-  padding: 10px;
-  border: 2px solid red;
+/* Movie list */
+.icon {
+  height: 225px;
+  width: 150px;
+  object-fit: cover;
 }
 
+.movie {
+  margin: 20px;
+  padding: 10px;
+  border: 2px solid #6699cc;
+  display: flex;
+  width: 64.5%;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  transform: translateY(0);
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.6s, opacity 0.6s;
+  -webkit-transition: transform 0.6s, opacity 0.6s;
+  -moz-transition: transform 0.6s, opacity 0.6s;
+  -ms-transition: transform 0.6s, opacity 0.6s;
+  -o-transition: transform 0.6s, opacity 0.6s;
+}
+
+.movie.hidden {
+  transform: translateX(75px);
+  -webkit-transform: translateX(75px);
+  -moz-transform: translateX(75px);
+  -ms-transform: translateX(75px);
+  -o-transform: translateX(75px);
+  opacity: 0;
+}
+
+.movie-left {
+  margin-left: 20px;
+  /* border: 2px solid brown; */
+}
+
+.movie-right {
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 30vw;
+}
+
+.listEl {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.read-more-btn {
+  margin-top: 5px;
+  width: 100px;
+  justify-self: flex-end;
+}
+
+/* Modal */
 body.modal-activated {
   overflow-y: hidden;
 }
@@ -38,9 +99,10 @@ body.modal-activated {
 .modal {
   background-color: white;
   position: fixed;
-  border: 2px solid blue;
-  height: 55vh;
-  width: 50vw;
+  /* border: 2px solid blue; */
+  min-height: 55vh;
+  min-width: 50vw;
+  width: 700px;
   top: 20vh;
   left: 50%;
   transform: translateX(-50%);
@@ -48,4 +110,34 @@ body.modal-activated {
   -moz-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  /* media query */
 }
+
+.modal-part-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  /* border: 2px solid orange; */
+}
+
+.modal-part-right {
+  width: 70%;
+  /* border: 2px solid purple; */
+  padding-top: 57px;
+  padding-left: 5px;
+  padding-right: 15px;
+  text-align: justify;
+}
+
+.modal-el {
+  margin-bottom: 10px;
+}
+
+.poster {
+  width: 90%;
+  object-fit: cover;
+}
+
