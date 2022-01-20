@@ -22,11 +22,12 @@ btnSubmit.addEventListener('click', e => {
 // Treating the search
 let target = document.querySelector("#last-el");
 // let myOmdbKey = '7080b933';
-let searchCounter = 0;
+// apikey=7080b933
+let searchCounter = 1;
 const getData = async (userSearch) => {
   let RecoveredDataToDisplay = [];
   try {
-    const response = await fetch(`http://www.omdbapi.com/?apikey=${myOmdbKey}&s=${userSearch}`);
+    const response = await fetch(`http://www.omdbapi.com/?apikey=${myOmdbKey}&s=${userSearch}&page=${searchCounter}`);
     const matchingData = await response.json();
     console.log(matchingData);
     matchingData.Search.forEach(movie => {
@@ -41,7 +42,7 @@ const getData = async (userSearch) => {
 
 // Displaying all the movies
 const displayData = (input) => {
-  target.innerHTML = '';
+  // target.innerHTML = '';
   input.forEach(el => {
     target.innerHTML += `
     <div class="movie intObs">
@@ -57,12 +58,13 @@ const displayData = (input) => {
       </div>
     </div>
   `;
+  input.shift();
 
   // Initialazing the Intersection Observer
   let observer = new IntersectionObserver(function (observables) {
   console.log(observables);
   observables.forEach(function (observable) {
-    if (observable.intersectionRatio > 0.5) {
+    if (observable.intersectionRatio > 0.35) {
       observable.target.classList.remove('hidden');
       // Seems optional here
       observer.unobserve(observable.target); 
@@ -73,7 +75,7 @@ const displayData = (input) => {
     // }
     })
   }, {
-    threshold: [0.5]
+    threshold: [0.35]
   });
   let elementsToObserve = document.querySelectorAll(".intObs");
   elementsToObserve.forEach( function (elt) {
@@ -103,15 +105,6 @@ const displayData = (input) => {
     })
   });
   })
-  window.onscroll = function() {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-     // Load another 10 results
-     // if (results over) {
-     //  display: "end of results";
-     // }
-    } 
-    }
-  };
 };
 
 // Getting more information on a movie via a modal
@@ -132,7 +125,16 @@ const getDescription = async (movieId) => {
   }
 }
 
-
+console.log(`searchCounter: ${searchCounter}`);
+window.onscroll = function() {
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+  // if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+  target.innerHTML = '';  
+  searchCounter++;
+    let userSearch = searchBar.value;
+    getData(userSearch);
+  }
+};
 
 // Styliser bouton
 // Nouvelle requête en bas de page
