@@ -1,0 +1,51 @@
+h1 {
+  text-align: center;
+}
+
+#searchbar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.searchbar {
+  width: 30vw;
+}
+
+.movie {
+  padding: 10px;
+  border: 2px solid red;
+}
+
+body.modal-activated {
+  overflow-y: hidden;
+}
+
+.visible{
+  display: block!important;
+}
+
+.modal-bg {
+  display: none;
+  top: 0;
+  left: 0;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  background-color: white;
+  position: fixed;
+  border: 2px solid blue;
+  height: 55vh;
+  width: 50vw;
+  top: 20vh;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+}
