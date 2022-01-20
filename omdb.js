@@ -1,4 +1,4 @@
-// Preparing the modal acitvation
+// Preparing the modal activation.
 let body = document.querySelector("body");
 let modalBg = document.querySelector(".modal-bg");
 let modalTitle = document.querySelector(".title-year");
@@ -9,39 +9,37 @@ let modalGenre = document.querySelector(".genre");
 let modalPlot = document.querySelector(".plot");
 let modalPartLeft= document.querySelector(".modal-part-left");
 
-// Getting the user search
+// Getting the user search.
 let searchBar = document.querySelector('#search-bar');
 let btnSubmit = document.querySelector('#submit-btn');
 btnSubmit.addEventListener('click', e => {
   e.preventDefault();
   let userSearch = searchBar.value;
-  console.log(userSearch);
   getData(userSearch);
 })
 
-// Treating the search
-let target = document.querySelector("#last-el");
+// Treating the search.
 let searchCounter = 1;
+let totalData = [];
 const getData = async (userSearch) => {
-  let RecoveredDataToDisplay = [];
+  let recoveredDataToDisplay = [];
   try {
-    const response = await fetch(`http://www.omdbapi.com/?apikey=${myOmdbKey}&s=${userSearch}&page=${searchCounter++}`);
+    const response = await fetch(`http://www.omdbapi.com/?apikey=${myOmdbKey}&s=${userSearch}&page=${searchCounter}`);
     const matchingData = await response.json();
-    console.log(matchingData);
     matchingData.Search.forEach(movie => {
-      RecoveredDataToDisplay.push({ 'name': movie.Title, 'date': movie.Year, 'poster': movie.Poster, id: movie.imdbID });
+      recoveredDataToDisplay.push({ 'name': movie.Title, 'date': movie.Year, 'poster': movie.Poster, id: movie.imdbID });
+      totalData.push({ 'name': movie.Title, 'date': movie.Year, 'poster': movie.Poster, id: movie.imdbID });
     });
-    // console.log(`RecoveredData: ${JSON.stringify(RecoveredDataToDisplay)}`);
-    displayData(RecoveredDataToDisplay);
+    displayData(recoveredDataToDisplay);
   }
   catch (error) {
     console.error('Response error:', error.message);
   }
 }
 
-// Displaying all the movies
+// Displaying a batch of 10 movies (it corresponds to an API "page", which is the default value returned).
+let target = document.querySelector("#last-el");
 const displayData = (input) => {
-  console.log(input);
   input.forEach(el => {
     target.innerHTML += `
     <div class="movie intObs">
@@ -61,13 +59,12 @@ const displayData = (input) => {
 
   // Initialazing the Intersection Observer
   let observer = new IntersectionObserver(function (observables) {
-  console.log(observables);
-  observables.forEach(function (observable) {
+  observables.forEach(function (observable, id) {
     if (observable.intersectionRatio > 0.35) {
       observable.target.classList.remove('hidden');
       // Seems optional here
       observer.unobserve(observable.target); 
-      }
+    }
     // // To make it work both ways
     // else {
     //   observable.target.classList.add('hidden');
@@ -78,18 +75,18 @@ const displayData = (input) => {
   });
 
   // Defining observables
-  let elementsToObserve = document.querySelectorAll(".intObs");
+  elementsToObserve = document.querySelectorAll(".intObs");
   elementsToObserve.forEach( function (elt) {
     elt.classList.add('hidden');
     observer.observe(elt);
   });
 
-  // Setting the buttons to get movie modals. 
+  // Setting up the movie modal buttons. 
   let readMoreBtn = document.querySelectorAll(".read-more-btn");
   readMoreBtn.forEach(button => {
     button.addEventListener('click', e => {
       let btnIndex = Array.from(readMoreBtn).indexOf(e.target);
-      getDescription(input[btnIndex].id);
+      getDescription(totalData[btnIndex].id);
       modalBg.classList.add("visible");
       body.classList.add("modal-activated");
       
@@ -121,19 +118,17 @@ const getDescription = async (movieId) => {
     modalPlot.innerHTML = `Synopsis: ${curatedDescription.Plot}`;
     modalPartLeft.innerHTML = `<img class="poster" src="${curatedDescription.Poster}" alt="movie poster" />`;
   }
-    catch (error) {
-      console.error('Response error:', error.message);
+  catch (error) {
+    console.error('Response error:', error.message);
   }
 }
 
-// console.log(`searchCounter: ${searchCounter}`);
+// Load the next 10 results once the end of the page —that is to say the end of the loaded elements— is reached.
 window.onscroll = function() {
+  // Possible alternative to window.scrollY: window.pageYOffset) 
   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-  // if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-  // target.innerHTML = '';  
     let userSearch = searchBar.value;
+    searchCounter++;
     getData(userSearch);
   }
 }
-
-
